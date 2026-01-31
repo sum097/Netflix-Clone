@@ -6,6 +6,7 @@ import hero_title from "../../assets/hero_title.png";
 import play_icon from "../../assets/play_icon.png";
 import info_icon from "../../assets/info_icon.png";
 import Titlecards from "../../components/TitleCards/Titlecards";
+import Footer from "../../components/Footer/Footer";
 
 const Home = () => {
   return (
@@ -33,6 +34,13 @@ const Home = () => {
           <Titlecards />
         </div>
       </div>
+      <div className="more-cards">
+        <Titlecards title={"Blockbuster Movies"} category={"top_rated"}/>
+        <Titlecards title={"Only on Netflix"} category={"popular"}/>
+        <Titlecards title={"Upcoming"} category={"upcoming"}/>
+        <Titlecards title={"Top Picks for You"} category={"now_playing"}/>
+      </div>
+      <Footer/>
     </div>
   );
 };
