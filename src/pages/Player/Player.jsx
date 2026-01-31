@@ -4,8 +4,7 @@ import back_arrow_icon from "../../assets/back_arrow_icon.png";
 import { useNavigate, useParams } from "react-router-dom";
 
 const Player = () => {
-
-  const {id} = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
 
   const [apiData, setApiData] = useState({
@@ -25,18 +24,36 @@ const Player = () => {
   };
 
   useEffect(() => {
-    fetch(
-      `https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`,
-      options,
-    )
-      .then((response) => response.json())
-      .then((response) => setApiData(response.results[0]))
-      .catch((error) => console.error(error));
-  }, []);
+    const isYouTubeKey = isNaN(id);
+
+    if (isYouTubeKey) {
+      // Direct YouTube key - set it directly
+      setApiData({
+        name: "The Protector",
+        key: id,
+        published_at: "2018-12-14",
+        type: "Trailer",
+      });
+    } else {
+      fetch(
+        `https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`,
+        options,
+      )
+        .then((response) => response.json())
+        .then((response) => setApiData(response.results[0]))
+        .catch((error) => console.error(error));
+    }
+  }, [id]);
 
   return (
     <div className="player">
-      <img src={back_arrow_icon} alt="" onClick={() => {navigate(-1)}}/>
+      <img
+        src={back_arrow_icon}
+        alt=""
+        onClick={() => {
+          navigate(-1);
+        }}
+      />
       <iframe
         width="90%"
         height="90%"
